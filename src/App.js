@@ -5,41 +5,43 @@ class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
   // this component is going to take care of state, and any change handlers you need to work with your state
-  constructor(){
+  constructor() {
     super();
     this.state = {
-      toDos: [ {
-        task: 'Organize Garage',
-        id: 1528817077286,
-        completed: false
-      },
-      {
-        task: 'Bake Cookies',
-        id: 1528817084358,
-        completed: false
-      }],
+      toDos: [],
+      task: '',
       searchFilter: '',
     }
   }
 
 
 
-  submitTaskHandler = (taskName) => {
+  submitTaskHandler = (e) => {
+    e.preventDefault();
     const newTask = {
-      task: taskName,
+      task: this.state.task,
       id: Date.now(),
       completed: false
     }
     this.setState({
-      toDos: [...this.state.toDos, newTask]
+      toDos: [...this.state.toDos, newTask],
+      task: '',
+      searchFilter: '',
     })
-    console.log(this.state.toDos)
   }
 
-   toggleTask = (id) => {
+  inputChangeHandler = (e) => {
+    this.setState({
+      toDos: [...this.state.toDos],
+      task: e.target.value,
+      searchFilter: ''
+    })
+  }
+
+  toggleTask = (id) => {
     this.setState({
       toDos: this.state.toDos.map(todo => {
-        if(todo.id === id) {
+        if (todo.id === id) {
           return {
             ...todo,
             completed: !todo.completed
@@ -70,8 +72,8 @@ class App extends React.Component {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoForm addTask={this.submitTaskHandler}/>
-        <TodoList toDos={this.state.toDos} toggleTask={this.toggleTask} searchFilter={this.state.searchFilter}/>
+        <TodoForm addTask={this.submitTaskHandler} inputHandler={this.inputChangeHandler} task={this.state.task}/>
+        <TodoList toDos={this.state.toDos} toggleTask={this.toggleTask} searchFilter={this.state.searchFilter} />
         <button onClick={this.clearCompleted}>Clear Completed</button>
         <input onChange={this.searchFilterHandler} placeholder='Search Tasks' />
       </div>

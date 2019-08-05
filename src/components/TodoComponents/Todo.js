@@ -4,11 +4,13 @@ const Todo = (props) => {
     let style;
     if(props.todo.completed === true) {
         style = {
-            textDecoration: 'line-through'
+            textDecoration: 'line-through',
+            background: 'green'
         }
     } else {
         style = {
             textDecoration: 'none',
+            background: 'red'
         }
     }
     return (

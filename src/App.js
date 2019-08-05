@@ -18,6 +18,7 @@ class App extends React.Component {
         id: 1528817084358,
         completed: false
       }],
+      searchFilter: '',
     }
   }
 
@@ -57,13 +58,22 @@ class App extends React.Component {
       toDos: [...this.state.toDos.filter(task => !task.completed)]
     })
   }
+
+  searchFilterHandler = (e) => {
+    this.setState({
+      toDos: [...this.state.toDos],
+      searchFilter: e.target.value,
+    })
+  }
+
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoForm addTask={this.submitTaskHandler}/>
-        <TodoList toDos={this.state.toDos} toggleTask={this.toggleTask}/>
+        <TodoList toDos={this.state.toDos} toggleTask={this.toggleTask} searchFilter={this.state.searchFilter}/>
         <button onClick={this.clearCompleted}>Clear Completed</button>
+        <input onChange={this.searchFilterHandler} placeholder='Search Tasks' />
       </div>
     );
   }

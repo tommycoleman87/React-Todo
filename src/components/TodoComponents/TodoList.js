@@ -12,7 +12,7 @@ const TodoList = (props) => {
                 if(todo.task.toLowerCase().includes(props.searchFilter.toLowerCase())){
                     return <ToDo key={todo.id} todo={todo} toggleTask={props.toggleTask}/>
                 } else {
-                    return <div>No matches</div>
+                    return;
                 }
             })}
         </div>

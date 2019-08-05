@@ -22,7 +22,7 @@ class App extends React.Component {
 
   submitTaskHandler = (e) => {
     const newTask = {task: this.state.task, id: Date.now(), completed: false}
-    window.localStorage.clear();
+    
     window.localStorage.setItem('state', JSON.stringify({toDos: [...this.state.toDos, newTask], task: '', searchFilter: ''}))
     console.log(newTask)
     console.log(this.state)
